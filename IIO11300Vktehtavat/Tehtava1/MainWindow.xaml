@@ -9,13 +9,29 @@
     <Grid>
     <StackPanel Orientation="Horizontal">
       <StackPanel Orientation="Vertical">
-        <TextBlock x:Name="tbWidht" Text="Ikkunan leveys" Height="28" Margin="10,10,10,0" />
-        <TextBox x:Name="txtWidht" Text="600" Height="28" Width="114" Margin="10,10,10,0" />
+        <TextBlock x:Name="tbWidth" Text="Ikkunan leveys" Height="28" Margin="10,10,10,0" />
+        <TextBox x:Name="txtWidth" Text="" Height="28" Width="114" Margin="10,10,10,0" />
+
+        <TextBlock x:Name="tbHeight" Text="Ikkunan korkeus" Height="28" Margin="10,10,10,0" />
+        <TextBox x:Name="txtHeight" Text="" Height="28" Width="114" Margin="10,10,10,0" />
+          
+        <TextBlock x:Name="tbBorder" Text="Karmipuun leveys" Height="28" Margin="10,10,10,0" />
+        <TextBox x:Name="txtBorder" Text="45" Height="28" Width="114" Margin="10,10,10,0" />
       </StackPanel>
-      <StackPanel Orientation="Vertical">
+      <StackPanel Orientation="Vertical" Width="205">
         <Button x:Name="btnCalculate" Content="Laske pinta-ala ja piiri" Height="32" Width="180" Click="btnCalculate_Click" Margin="10,10,10,0"/>
         <Button x:Name="btnClose" Content="Sulje" Height="32" Width="180" Click="btnClose_Click" Margin="10,10,10,0"/>
       </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <TextBlock x:Name="tbWindowArea" Text="Ikkunan pinta-ala" Height="28" Margin="10,10,10,0" />
+                <TextBox x:Name="txtWindowArea" Text="" Height="28" Width="114" Margin="10,10,10,0" IsEnabled="False" />
+
+                <TextBlock x:Name="tbBorderPerimeter" Text="Karmin piiri" Height="28" Margin="10,10,10,0" />
+                <TextBox x:Name="txtBorderPerimeter" Text="" Height="28" Width="114" Margin="10,10,10,0" IsEnabled="False" />
+
+                <TextBlock x:Name="tbBorderArea" Text="Karmin pinta-ala" Height="28" Margin="10,10,10,0" />
+                <TextBox x:Name="txtBorderArea" Text="" Height="28" Width="114" Margin="10,10,10,0" IsEnabled="False" />
+            </StackPanel>
     </StackPanel>
   </Grid>
 </Window>

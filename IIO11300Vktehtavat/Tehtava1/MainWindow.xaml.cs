@@ -31,38 +31,63 @@ namespace Tehtava1
       InitializeComponent();
     }
 
-        private void btnCalculate_Click(object sender, RoutedEventArgs e)
-        {
-            //TODO
-            try
-            {
-                double result;
-                result = BusinessLogicWindow.CalculatePerimeter(1, 1);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                //yield to an user that everything okay
-            }
-        }
+    private void btnCalculate_Click(object sender, RoutedEventArgs e)
+    {
+      try
+      {
+        double windowArea = 0;
+        double borderPerimeter = 0;
+        double borderArea = 0; 
+
+        double winX   = Double.Parse(txtWidth.Text);
+        double winY   = Double.Parse(txtHeight.Text);
+        double border = Double.Parse(txtBorder.Text); 
+
+        windowArea = BusinessLogicWindow.CalculateArea(winX, winY);
+        borderPerimeter = BusinessLogicWindow.CalculatePerimeter(winX + (border*2), winY + (border*2));
+        borderArea = BusinessLogicWindow.CalculateArea(winX + (border*2), winY + (border*2)) - windowArea;
+
+        txtWindowArea.Text = windowArea.ToString();
+        txtBorderPerimeter.Text = borderPerimeter.ToString();
+        txtBorderArea.Text = borderArea.ToString();
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show(ex.Message);
+      }
+      finally
+      {
+        //yield to an user that everything okay
+      }
+    }
 
     private void btnClose_Click(object sender, RoutedEventArgs e)
     {
-
+      this.Close();
     }
   }
 
+  /// <summary>
+  /// Business logic for MainWindow.xaml
+  /// </summary>
   public class BusinessLogicWindow
-    {
+  {
+      /// <summary>
+      /// CalculateArea calculates area.
+      /// Aimed for reusability
+      /// </summary>
+      public static double CalculateArea(double width, double height)
+      {
+        return width * height;
+      }
+
     /// <summary>
-    /// CalculatePerimeter calculates the perimeter of a window
+    /// CalculatePerimeter calculates perimeter
+    /// Aimed for reusability
     /// </summary>
-    public static double CalculatePerimeter(double widht, double height)
-        {
-            throw new System.NotImplementedException();
-        }
-    }
+    public static double CalculatePerimeter(double width, double height)
+      {
+        return width*2 + height*2;
+      }
+  }
 }
