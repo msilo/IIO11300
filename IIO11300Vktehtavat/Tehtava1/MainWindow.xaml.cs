@@ -21,6 +21,8 @@ using System.Windows.Shapes;
 
 namespace Tehtava1
 {
+  
+
   /// <summary>
   /// Interaction logic for MainWindow.xaml
   /// </summary>
@@ -31,6 +33,7 @@ namespace Tehtava1
       InitializeComponent();
     }
 
+    // Huono tapa. Toteutus sekametelinä.
     private void btnCalculate_Click(object sender, RoutedEventArgs e)
     {
       try
@@ -64,6 +67,24 @@ namespace Tehtava1
     private void btnClose_Click(object sender, RoutedEventArgs e)
     {
       this.Close();
+    }
+
+    // Parempi tapa. Toteutettu olioilla.
+    private void btnCalculateArea_Click(object sender, RoutedEventArgs e)
+    {
+      try
+      {
+        JAMK.IT.IIO11300.Ikkuna win1 = new JAMK.IT.IIO11300.Ikkuna(Double.Parse(txtWidth.Text),
+                                                                   Double.Parse(txtHeight.Text),
+                                                                   Double.Parse(txtBorder.Text));
+        txtWindowArea.Text = win1.PintaAla.ToString();
+        txtBorderPerimeter.Text = "hehe";
+        txtBorderArea.Text = "Hauskaa";
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show(ex.Message);
+      }
     }
   }
 

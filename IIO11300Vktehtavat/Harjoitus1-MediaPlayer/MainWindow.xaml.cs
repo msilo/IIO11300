@@ -25,18 +25,65 @@ namespace Harjoitus1_MediaPlayer
             InitializeComponent();
         }
 
+        private bool isPaused = false;
+        private TimeSpan aika;
+
         private void btnPlay_Click(object sender, RoutedEventArgs e)
         {
-            // Soitetaan käyttäjän valitsemaa mediatiedostoa
-            string file = @"d:\G8499\testi.mp4";
+          try
+          {
 
-            // Tutkitaan onko tiedotoa olemassa
-            if (System.IO.File.Exists(file))
-            {
-                //MessageBox.Show("Balalaikka" + " soi " + file);
-                mediaElement.Source = new Uri(file);
-                mediaElement.Play();
-            }
+            loadMediaFile();
+
+            isPaused = false;
+            mediaElement.Play();
+          }
+          catch (Exception ex)
+          {
+            MessageBox.Show(ex.Message);
+          }
         }
+
+    // Ladataan käyttäjän valitsema tiedosto
+    private void loadMediaFile()
+    {
+      // Soitetaan käyttäjän valitsemaa mediatiedostoa
+      string path = @"d:\G8499\media\";
+      string file = @txtSource.Text;
+      string jees = path + file;
+
+      // Tutkitaan onko tiedotoa olemassa
+      if (System.IO.File.Exists(jees))
+      {
+        mediaElement.Source = new Uri(jees);
+      }
+      // Jos ei niin poikkeusta kehiin
+      else
+      {
+        throw new Exception("Tiedostoa " + jees + " ei löydy!");
+      }
     }
+
+    private void btnPause_Click(object sender, RoutedEventArgs e)
+    {
+      if(isPaused == true)
+      {
+        mediaElement.Position = aika;
+        mediaElement.Play();
+        isPaused = false;
+        
+      }
+      else
+      {
+        aika = mediaElement.Position;
+        isPaused = true;
+        mediaElement.Pause();
+      }
+    }
+
+    private void btnStop_Click(object sender, RoutedEventArgs e)
+    {
+      mediaElement.Stop();
+    }
+  }
 }

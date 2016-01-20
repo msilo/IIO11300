@@ -21,7 +21,8 @@
       <StackPanel Orientation="Vertical" Width="205">
         <Button x:Name="btnCalculate" Content="Laske pinta-ala ja piiri" Height="32" Width="180" Click="btnCalculate_Click" Margin="10,10,10,0"/>
         <Button x:Name="btnClose" Content="Sulje" Height="32" Width="180" Click="btnClose_Click" Margin="10,10,10,0"/>
-      </StackPanel>
+                <Button x:Name="btnCalculateArea" Content="Laske pinta-ala (oliolla)" Click="btnCalculateArea_Click"/>
+            </StackPanel>
             <StackPanel Orientation="Vertical">
                 <TextBlock x:Name="tbWindowArea" Text="Ikkunan pinta-ala" Height="28" Margin="10,10,10,0" />
                 <TextBox x:Name="txtWindowArea" Text="" Height="28" Width="114" Margin="10,10,10,0" IsEnabled="False" />

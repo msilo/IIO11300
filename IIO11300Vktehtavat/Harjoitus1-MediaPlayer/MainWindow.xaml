@@ -7,8 +7,12 @@
         mc:Ignorable="d"
         Title="My fine media player" Height="350" Width="525">
     <Grid>
-        <Button x:Name="btnPlay" Content="Paina tästä" HorizontalAlignment="Left" Margin="214,37,0,0" VerticalAlignment="Top" Width="75" ToolTip="painas täst...." Cursor="Cross" Click="btnPlay_Click" RenderTransformOrigin="0.04,0.717"/>
-        <MediaElement x:Name="mediaElement" HorizontalAlignment="Left" Height="236" Margin="0,83,0,0" VerticalAlignment="Top" Width="517" RenderTransformOrigin="-0.125,0.179" LoadedBehavior="Manual"/>
+        <Button x:Name="btnPlay" Content="Play" HorizontalAlignment="Left" Margin="90,37,0,0" VerticalAlignment="Top" Width="75" ToolTip="painas täst...." Cursor="Cross" Click="btnPlay_Click" RenderTransformOrigin="0.04,0.717"/>
+        <MediaElement x:Name="mediaElement" HorizontalAlignment="Left" Height="218" Margin="10,91,0,0" VerticalAlignment="Top" Width="497" RenderTransformOrigin="-0.125,0.179" LoadedBehavior="Manual"/>
+        <Button x:Name="btnPause" Content="Pause" HorizontalAlignment="Left" Margin="170,37,0,0" VerticalAlignment="Top" Width="75" Click="btnPause_Click"/>
+        <Button x:Name="btnStop" Content="Stop" HorizontalAlignment="Left" Margin="250,37,0,0" VerticalAlignment="Top" Width="75" Click="btnStop_Click"/>
+        <TextBox x:Name="txtSource" HorizontalAlignment="Left" Height="23" Margin="90,9,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="275"/>
+        <TextBlock x:Name="tbSource" HorizontalAlignment="Left" Margin="10,16,0,0" TextWrapping="Wrap" Text="Source" VerticalAlignment="Top" Width="75"/>
 
     </Grid>
 </Window>
