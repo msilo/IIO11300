@@ -24,5 +24,22 @@ namespace Tehtava2
     {
       InitializeComponent();
     }
+
+    private void cbGame_Loaded(object sender, RoutedEventArgs e)
+    {
+      // Lista
+      List<string> lista = new List<string>();
+      lista.Add("Suomi");
+      lista.Add("Viking Lotto");
+      lista.Add("Euro Jackpot");
+
+      cbGame.ItemsSource = lista;
+      cbGame.SelectedIndex = 0;
+    }
+
+    private void cbGame_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+      MessageBox.Show(cbGame.SelectedItem.ToString());
+    }
   }
 }

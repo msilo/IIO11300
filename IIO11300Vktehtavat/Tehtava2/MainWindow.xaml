@@ -5,25 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tehtava2"
         mc:Ignorable="d"
-        Title="MainWindow" Height="348.361" Width="306.967">
+        Title="Lottomummo 3000" Height="350" Width="300">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
             <RowDefinition Height="100" />
-            <RowDefinition Height="100" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100" />
             <ColumnDefinition Width="200" />
         </Grid.ColumnDefinitions>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Grid.Row="0" Grid.Column="0"/>
-        <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0"/>
-        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="0,00,0,0" VerticalAlignment="Top" Width="120" Grid.Row="0" Grid.Column="1"/>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="0,0,0,0" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="btnClear" Content="Clear" Grid.Column="1" HorizontalAlignment="Left" Margin="0,2,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="btnDraw" Content="Draw" Grid.Column="0" HorizontalAlignment="Left" Margin="0,2,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75" Height="20"/>
-        <TextBlock x:Name="textBlock1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="34,35,0,-98" Grid.Row="3" TextWrapping="Wrap" Text="asdasdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" VerticalAlignment="Top" Width="231" Height="83"/>
+        <TextBlock x:Name="tbGame" HorizontalAlignment="Stretch" Margin="0,0,0,0" TextWrapping="Wrap" Text="Choose the game" VerticalAlignment="center" Grid.Row="0" Grid.Column="0"/>
+        <TextBlock x:Name="tbDrawns" HorizontalAlignment="Stretch" Margin="0,0,0,0" TextWrapping="Wrap" Text="Number of drawns" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"/>
+        <ComboBox x:Name="cbGame" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="center" Width="120" Grid.Row="0" Grid.Column="1" Loaded="cbGame_Loaded" SelectionChanged="cbGame_SelectionChanged"/>
+        <TextBox x:Name="txtDrawns" HorizontalAlignment="Stretch" Height="23" Margin="0,0,0,0" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" Text="1" VerticalAlignment="Center" Width="120"/>
+        <Button x:Name="btnClear" Content="Clear" Grid.Column="1" HorizontalAlignment="center" Margin="0,0,0,0" Grid.Row="2" VerticalAlignment="center" Width="75"/>
+        <Button x:Name="btnDraw" Content="Draw" Grid.Column="0" HorizontalAlignment="Stretch" Margin="0,0,0,0" Grid.Row="2" VerticalAlignment="Center" Width="75" Height="20"/>
+        <TextBox x:Name="txtOutcome" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Grid.Row="4" TextWrapping="Wrap" Text="asdasdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" VerticalAlignment="Top" Width="272" Height="81" Margin="10,10,0,0"/>
+        <TextBlock x:Name="tbOutcome" HorizontalAlignment="Center" Margin="0,00,0,0" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" TextWrapping="Wrap" Text="Randomly drawn numbers" VerticalAlignment="center"/>
+        <Button x:Name="button" Content="Button" Grid.Column="1" HorizontalAlignment="Left" Margin="75,29,0,0" Grid.Row="5" VerticalAlignment="Top" Width="75"/>
     </Grid>
 </Window>
