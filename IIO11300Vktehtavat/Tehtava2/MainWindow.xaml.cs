@@ -22,7 +22,7 @@ namespace Tehtava2
   public partial class MainWindow : Window
   {
     private Lotto lotto;
-    List<ComboBoxItem> lista;
+    
     public MainWindow()
     {
       InitializeComponent();
@@ -33,27 +33,20 @@ namespace Tehtava2
     {
       // Create instance of Lotto
       lotto = new Lotto();
-
-      // Create instance of List and populate it
-      lista = new List<ComboBoxItem>();
-      // Key - Value
-      lista.Add(new ComboBoxItem("Suomi", 0));
-      lista.Add(new ComboBoxItem("Viking Lotto", 1));
-      lista.Add(new ComboBoxItem("Euro Jackpot", 0));
     }
 
     private void cbGame_Loaded(object sender, RoutedEventArgs e)
     {
       // Set items source and seleted index
-      cbGame.ItemsSource = lista;
+      cbGame.ItemsSource = lotto.getLotot();
       cbGame.SelectedIndex = 0;
+
+      lotto.Mode = cbGame.SelectedIndex;
     }
 
     private void cbGame_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-      // Set mode in Lotto
-      //lotto.Mode = 
-      //MessageBox.Show(cbGame.SelectedItem.ToString());
+      lotto.Mode = cbGame.SelectedIndex;
     }
 
     private void txtDrawns_LostFocus(object sender, RoutedEventArgs e)
@@ -62,12 +55,50 @@ namespace Tehtava2
       {
         // Get source object
         TextBox t = (TextBox)e.Source;
-        MessageBox.Show(t.Text);
+        // Check if number
+        if (System.Text.RegularExpressions.Regex.IsMatch(t.Text, "^[0-9]*$"))
+        {
+          lotto.Drawns = int.Parse(t.Text);
+        }
+        else
+        {
+          throw new Exception(t.Text + " ei ole numero :)");
+        }
       }
       catch(Exception ex)
       {
         MessageBox.Show(ex.Message);
       }
+    }
+
+    private void btnDraw_Click(object sender, RoutedEventArgs e)
+    {
+      try {
+        lotto.arvonta(txtOutcome);
+      }
+      catch(Exception ex)
+      {
+        MessageBox.Show(ex.Message);
+      }
+    }
+
+    private void txtDrawns_Loaded(object sender, RoutedEventArgs e)
+    {
+      try
+      {
+        // Get source object
+        TextBox t = (TextBox)e.Source;
+        lotto.Drawns = int.Parse(t.Text);
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show(ex.Message);
+      }
+    }
+
+    private void btnClear_Click(object sender, RoutedEventArgs e)
+    {
+      txtOutcome.Text = "";
     }
   }
 }

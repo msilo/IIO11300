@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tehtava2"
         mc:Ignorable="d"
-        Title="Lottomummo 3000" Height="350" Width="300">
+        Title="Lottomummo 3000" Height="350" Width="300" MaxHeight="800" MaxWidth="600" MinHeight="350" MinWidth="300">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
@@ -16,17 +16,86 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100" />
-            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <TextBlock x:Name="tbGame" HorizontalAlignment="Stretch" Margin="0,0,0,0" TextWrapping="Wrap" Text="Choose the game" VerticalAlignment="center" Grid.Row="0" Grid.Column="0"/>
-        <TextBlock x:Name="tbDrawns" HorizontalAlignment="Stretch" Margin="0,0,0,0" TextWrapping="Wrap" Text="Number of drawns" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"/>
-        <ComboBox x:Name="cbGame" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="center" Width="120" Grid.Row="0" Grid.Column="1" Loaded="cbGame_Loaded" SelectionChanged="cbGame_SelectionChanged"/>
-        <TextBox x:Name="txtDrawns" HorizontalAlignment="Stretch" Height="23" Margin="0,0,0,0" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" Text="1" VerticalAlignment="Center" Width="120" LostFocus="txtDrawns_LostFocus"/>
-        <Button x:Name="btnClear" Content="Clear" Grid.Column="1" HorizontalAlignment="center" Margin="0,0,0,0" Grid.Row="2" VerticalAlignment="center" Width="75"/>
-        <Button x:Name="btnDraw" Content="Draw" Grid.Column="0" HorizontalAlignment="Stretch" Margin="0,0,0,0" Grid.Row="2" VerticalAlignment="Center" Width="75" Height="20"/>
-        <TextBox x:Name="txtOutcome" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Top" Width="272" Height="81" Margin="10,10,0,0"/>
-        <TextBlock x:Name="tbOutcome" HorizontalAlignment="Center" Margin="0,00,0,0" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" TextWrapping="Wrap" Text="Randomly drawn numbers" VerticalAlignment="center"/>
-        <Button x:Name="button" Content="Button" Grid.Column="1" HorizontalAlignment="Left" Margin="75,29,0,0" Grid.Row="5" VerticalAlignment="Top" Width="75"/>
+        <TextBlock x:Name="tbGame" HorizontalAlignment="Center"
+                                   TextWrapping="Wrap"
+                                   Text="Choose the game"
+                                   VerticalAlignment="center"
+                                   Grid.Row="0" 
+                                   Grid.Column="0"
+        />
+        <TextBlock x:Name="tbDrawns" HorizontalAlignment="Center" 
+                                     TextWrapping="Wrap" 
+                                     Text="Number of drawns" 
+                                     VerticalAlignment="Center"
+                                     Grid.Row="1" 
+                                     Grid.Column="0"
+        />
+        <ComboBox x:Name="cbGame" HorizontalAlignment="Stretch" 
+                                  VerticalAlignment="center"
+                                  Width="120"
+                                  Grid.Row="0"
+                                  Grid.Column="1"
+                                  Loaded="cbGame_Loaded"
+                                  SelectionChanged="cbGame_SelectionChanged"
+        />
+        <TextBox x:Name="txtDrawns" HorizontalAlignment="Stretch" 
+                                    Height="23"
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    TextWrapping="Wrap"
+                                    Text="1" 
+                                    VerticalAlignment="Center"
+                                    Width="120"
+                                    LostFocus="txtDrawns_LostFocus"
+                                    Loaded="txtDrawns_Loaded"
+        />
+        <Button x:Name="btnClear" Content="Clear" 
+                                  Grid.Column="1" 
+                                  HorizontalAlignment="center"
+                                  Grid.Row="2" 
+                                  VerticalAlignment="center"
+                                  Width="75"
+                                  Click="btnClear_Click"
+        />
+        <Button x:Name="btnDraw" Content="Draw"
+                                 Grid.Column="0"
+                                 HorizontalAlignment="Stretch"
+                                 Margin="0,0,0,0" Grid.Row="2"
+                                 VerticalAlignment="Center"
+                                 Width="75"
+                                 Height="20"
+                                 Click="btnDraw_Click"
+        />
+        <TextBox x:Name="txtOutcome" Grid.Column="0"
+                                     Grid.ColumnSpan="2" 
+                                     HorizontalAlignment="Center"
+                                     Grid.Row="4"
+                                     TextWrapping="Wrap"
+                                     VerticalAlignment="Center"
+                                     Width="272"
+                                     Height="81"
+                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                     ScrollViewer.VerticalScrollBarVisibility="Auto"
+        />
+        <TextBlock x:Name="tbOutcome" HorizontalAlignment="Center" 
+                                      Margin="0,00,0,0"
+                                      Grid.Column="0"
+                                      Grid.Row="3"
+                                      Grid.ColumnSpan="2"
+                                      TextWrapping="Wrap"
+                                      Text="Randomly drawn numbers"
+                                      VerticalAlignment="center"
+        />
+        <Button x:Name="button" Content="Button" 
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                HorizontalAlignment="Center"
+                                Grid.Row="5"
+                                VerticalAlignment="Top" 
+                                Width="100"
+        />
     </Grid>
 </Window>
