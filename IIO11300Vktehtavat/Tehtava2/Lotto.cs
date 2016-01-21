@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace JAMK.IT.IIO11300
 {
@@ -30,7 +31,7 @@ namespace JAMK.IT.IIO11300
 
     public void arvonta()
     {
-
+      MessageBox.Show("Arvotaan");
     }
 
     public void suomi()

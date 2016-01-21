@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JAMK.IT.IIO11300;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,26 +21,39 @@ namespace Tehtava2
   /// </summary>
   public partial class MainWindow : Window
   {
+    private Lotto lotto;
+    List<ComboBoxItem> lista;
     public MainWindow()
     {
       InitializeComponent();
+      init();
+    }
+
+    private void init()
+    {
+      // Create instance of Lotto
+      lotto = new Lotto();
+
+      // Create instance of List and populate it
+      lista = new List<ComboBoxItem>();
+      // Key - Value
+      lista.Add(new ComboBoxItem("Suomi", 0));
+      lista.Add(new ComboBoxItem("Viking Lotto", 1));
+      lista.Add(new ComboBoxItem("Euro Jackpot", 0));
     }
 
     private void cbGame_Loaded(object sender, RoutedEventArgs e)
     {
-      // Lista
-      List<string> lista = new List<string>();
-      lista.Add("Suomi");
-      lista.Add("Viking Lotto");
-      lista.Add("Euro Jackpot");
-
+      // Set items source and seleted index
       cbGame.ItemsSource = lista;
       cbGame.SelectedIndex = 0;
     }
 
     private void cbGame_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-      MessageBox.Show(cbGame.SelectedItem.ToString());
+      // Set mode in Lotto
+      //lotto.Mode = 
+      //MessageBox.Show(cbGame.SelectedItem.ToString());
     }
 
     private void txtDrawns_LostFocus(object sender, RoutedEventArgs e)
