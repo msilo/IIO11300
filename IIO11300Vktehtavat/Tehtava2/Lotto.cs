@@ -28,7 +28,25 @@ namespace JAMK.IT.IIO11300
 
     }
 
-    public
+    public void arvonta()
+    {
+
+    }
+
+    public void suomi()
+    {
+
+    }
+
+    public void viking()
+    {
+
+    }
+
+    public void euro()
+    {
+
+    }
 
   }
 }

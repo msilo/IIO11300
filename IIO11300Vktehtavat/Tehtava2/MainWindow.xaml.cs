@@ -41,5 +41,19 @@ namespace Tehtava2
     {
       MessageBox.Show(cbGame.SelectedItem.ToString());
     }
+
+    private void txtDrawns_LostFocus(object sender, RoutedEventArgs e)
+    {
+      try
+      {
+        // Get source object
+        TextBox t = (TextBox)e.Source;
+        MessageBox.Show(t.Text);
+      }
+      catch(Exception ex)
+      {
+        MessageBox.Show(ex.Message);
+      }
+    }
   }
 }
