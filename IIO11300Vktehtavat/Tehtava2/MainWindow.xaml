@@ -89,13 +89,13 @@
                                       Text="Randomly drawn numbers"
                                       VerticalAlignment="center"
         />
-        <Button x:Name="button" Content="Button" 
+        <Button x:Name="btnQuit" Content="Button" 
                                 Grid.Column="0"
                                 Grid.ColumnSpan="2"
                                 HorizontalAlignment="Center"
                                 Grid.Row="5"
                                 VerticalAlignment="Top" 
-                                Width="100"
+                                Width="100" Click="btnQuit_Click"
         />
     </Grid>
 </Window>

@@ -9,6 +9,7 @@ namespace JAMK.IT.IIO11300
   class Logics
   {
     private static Random random = new Random((int)DateTime.Now.Ticks);
+
     public static string suomi()
     {
       const int numerot = 7;

@@ -70,6 +70,11 @@ namespace JAMK.IT.IIO11300
       return "Arvonta tehty :D";
     }
 
+    public string arvonta(metodi m)
+    {
+      return m();
+    }
+
     public List<string> getLotot()
     {
       return lista;

@@ -22,6 +22,7 @@ namespace Tehtava2
   public partial class MainWindow : Window
   {
     private Lotto lotto;
+    private BusinessLogic business;
     
     public MainWindow()
     {
@@ -33,6 +34,8 @@ namespace Tehtava2
     {
       // Create instance of Lotto
       lotto = new Lotto();
+      // Create instance of business logic
+      business = new BusinessLogic();
     }
 
     private void cbGame_Loaded(object sender, RoutedEventArgs e)
@@ -58,10 +61,12 @@ namespace Tehtava2
         // Check if number
         if (System.Text.RegularExpressions.Regex.IsMatch(t.Text, "^[0-9]*$"))
         {
+          btnDraw.IsEnabled = true;
           lotto.Drawns = int.Parse(t.Text);
         }
         else
         {
+          btnDraw.IsEnabled = false;
           throw new Exception(t.Text + " ei ole numero :)");
         }
       }
@@ -74,11 +79,12 @@ namespace Tehtava2
     private void btnDraw_Click(object sender, RoutedEventArgs e)
     {
       try {
-        lotto.arvonta(txtOutcome);
+        txtOutcome.Text = business.arvonta(int.Parse(txtDrawns.Text), cbGame.SelectedIndex);
+        //lotto.arvonta(txtOutcome);
       }
       catch(Exception ex)
       {
-        MessageBox.Show(ex.Message);
+        MessageBox.Show("b" + ex.Message);
       }
     }
 
@@ -99,6 +105,11 @@ namespace Tehtava2
     private void btnClear_Click(object sender, RoutedEventArgs e)
     {
       txtOutcome.Text = "";
+    }
+
+    private void btnQuit_Click(object sender, RoutedEventArgs e)
+    {
+      this.Close();
     }
   }
 }
