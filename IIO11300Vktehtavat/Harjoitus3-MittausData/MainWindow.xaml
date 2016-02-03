@@ -16,6 +16,9 @@
                             <TextBlock x:Name="txtToday" Margin="10,0,0,0"/>
                             <TextBlock Text="Tiedostonimi:" Margin="10,0,0,0"/>
                             <TextBox x:Name="txtFileName" Text="d:\G8499\filut\testi.txt" Margin="10,0,0,0"/>
+                            <Button x:Name="btnSaveData" Margin="10,0,0,0" Content="Save To File" Click="btnSaveData_Click"/>
+                            <Button x:Name="btnLoadData" Margin="10,0,0,0" Content="Read From File" Click="btnLoadData_Click" />
+                            <Button x:Name="btnSaveToXML" Margin="10,0,0,0" Content="Save To XML" Click="btnSaveToXML_Click" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Klo:" Margin="10,0,0,0"/>
