@@ -1,0 +1,9 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Harjoitus4_WPFXML.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="XMLtiedosto" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">d:\g8499\Työntekijät2013.xml</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
