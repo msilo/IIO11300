@@ -20,8 +20,9 @@ namespace Tehtava4
   /// </summary>
   public partial class MainWindow : Window
   {
-    private List<Pelaaja> pelaajat;
-    private List<string> seurat;
+    XMLManager xml; // BL luokka
+    private List<Pelaaja> pelaajat; // Lista pelaajista
+    private List<string> seurat; // Lista seuroista
     public MainWindow()
     {
       InitializeComponent();
@@ -30,20 +31,23 @@ namespace Tehtava4
 
     private void init()
     {
+      // Allocate memory for XMLmanager
+      xml = new XMLManager();
       // Allocate memory for lists
       pelaajat = new List<Pelaaja>();
       seurat = new List<string>();
-      // Set mockdata
-      pelaajat = mockData();
-      seurat = mockSeurat();
+      // Set data
+      pelaajat = xml.GetPelaajat(Tehtava4.Properties.Resources.pelaajat);
+      seurat = xml.GetSeurat(Tehtava4.Properties.Resources.seurat);
       // Update all
       updateSeurat();
-      updateList();
+      cbSeurat.SelectedIndex = 0;
+      updatePelaajatList();
       updateFeedback("All is well");
     }
 
     // Update Listbox controller with players
-    private void updateList()
+    private void updatePelaajatList()
     {
       lbPelaajat.ItemsSource = null;
       lbPelaajat.ItemsSource = pelaajat;
@@ -58,29 +62,7 @@ namespace Tehtava4
     private void updateSeurat()
     {
       cbSeurat.ItemsSource = null;
-      cbSeurat.ItemsSource = mockSeurat();
-    }
-
-    private List<Pelaaja> mockData()
-    {
-      List <Pelaaja> lista = new List<Pelaaja>();
-      lista.Add(new Pelaaja("jaska", "jokunen", 666,"tappara"));
-      lista.Add(new Pelaaja("aku", "ankka", 5000, "jokerit"));
-      lista.Add(new Pelaaja("jeesus", "kristus", 456, "kirkko"));
-      lista.Add(new Pelaaja("timo", "jutila", 999, "rillaajat"));
-
-      return lista;
-    }
-
-    private List<string> mockSeurat()
-    {
-      List<string> lista = new List<string>();
-      lista.Add("Kalpa");
-      lista.Add("Jyp");
-      lista.Add("kirkko");
-      lista.Add("rillaajat");
-
-      return lista;
+      cbSeurat.ItemsSource = seurat;
     }
 
     private void btnLopeta_Click(object sender, RoutedEventArgs e)
@@ -113,11 +95,18 @@ namespace Tehtava4
         }
 
         string hinta = txtSiirtoHinta.Text;
-        if(Char.IsNumber(hinta, hinta.Length))
+        if(!hinta.All(char.IsDigit))
         {
-          throw new Exception("Hinta ei voi sisältää kirjaimia!");
+          throw new Exception("Hinnan täytyy olla numero!");
         }
         string seura = cbSeurat.Text;
+
+        // Call business logic?
+
+        // Add player
+
+        pelaajat.Add(new Pelaaja(nimi, snimi, int.Parse(hinta), seura));
+        updatePelaajatList();
 
         MessageBox.Show(nimi+snimi+hinta+seura+ " OK OK OK");
       }
