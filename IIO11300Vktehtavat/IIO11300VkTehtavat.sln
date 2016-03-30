@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harjoitus4-WPFXML", "Harjoi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harjoitus-BookShopORM", "Harjoitus-BookShopORM\Harjoitus-BookShopORM.csproj", "{A01399FF-089E-4B56-80AD-A88D24834599}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harjoitus10-BookShopEF", "Harjoitus10-BookShopEF\Harjoitus10-BookShopEF.csproj", "{F2EBC591-4835-40E3-9AF8-AC7AF0EE4F33}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{A01399FF-089E-4B56-80AD-A88D24834599}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A01399FF-089E-4B56-80AD-A88D24834599}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A01399FF-089E-4B56-80AD-A88D24834599}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2EBC591-4835-40E3-9AF8-AC7AF0EE4F33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2EBC591-4835-40E3-9AF8-AC7AF0EE4F33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2EBC591-4835-40E3-9AF8-AC7AF0EE4F33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2EBC591-4835-40E3-9AF8-AC7AF0EE4F33}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
