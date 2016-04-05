@@ -27,14 +27,13 @@ namespace IIO11300HT_Siloaho
 
     private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-      // Todo
+      dpList.DataContext = dgRecipes.SelectedItem;
       try
       {
-
+       
       }
       catch (Exception ex)
       {
-
         MessageBox.Show(ex.Message);
       }
     }
@@ -58,12 +57,17 @@ namespace IIO11300HT_Siloaho
       //todo
       try
       {
-        BLRecipes.getAll();
+        dgRecipes.DataContext =  BLRecipes.staticData();
       }
       catch (Exception ex)
       {
         MessageBox.Show(ex.Message);
       }
+    }
+
+    private void btnPrint_Click(object sender, RoutedEventArgs e)
+    {
+
     }
   }
 }
