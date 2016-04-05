@@ -67,7 +67,40 @@ namespace IIO11300HT_Siloaho
 
     private void btnPrint_Click(object sender, RoutedEventArgs e)
     {
+      try
+      {
+        BLRecipes.PrintRecipe();
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show(ex.Message);
+      }
+    }
 
+    private void btnSave_Click(object sender, RoutedEventArgs e)
+    {
+      // Save recipe into database
+      try
+      {
+        BLRecipes.SaveRecipe();
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show(ex.Message);
+      }
+    }
+
+    private void btnRemove_Click(object sender, RoutedEventArgs e)
+    {
+      // Remove recipe from database
+      try
+      {
+        BLRecipes.RemoveRecipe();
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show(ex.Message);
+      }
     }
   }
 }

@@ -1,7 +1,9 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="IIO11300HT_Siloaho.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="connstr" Type="System.String" Scope="User">
+      <Value Profile="(Default)">SERVER=mysql.labranet.jamk.fi;DATABASE=G8499;UID=G8499;PASSWORD=sSG0lJNAnZxykyxnvPunMZqdEzztwknm;</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>
