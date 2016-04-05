@@ -1,0 +1,80 @@
+﻿<Window x:Class="Harjoitus10_BookShopEF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Harjoitus10_BookShopEF"
+        mc:Ignorable="d"
+        Title="BookSHop EF" Height="350" Width="612.5">
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Horizontal">
+                
+                <StackPanel Orientation="Vertical">
+                    <Button x:Name="btnHaeKirjat" Click="btnHaeKirjat_Click">Hae kirjat EF</Button>
+                    <Button x:Name="btnHaeAsiakkaat" Click="btnHaeAsiakkaat_Click">Hae asiakkaat EF</Button>
+                    <ComboBox x:Name="cmbMaa" SelectionChanged="cmbMaa_SelectionChanged" ItemsSource="{Binding}"></ComboBox>
+                </StackPanel>
+                
+                <StackPanel x:Name="spBook" Orientation="Vertical" Background="#FFC52E2E" Width="262">
+                    <StackPanel Orientation="Horizontal" Width="307">
+                        <Label Width="60">Tuote</Label>
+                        <TextBlock Width="200" Text="{Binding Path=DisplayName, Mode=OneWay}"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Width="60">Nimi</Label>
+                        <TextBox x:Name="tbNimi" Width="200" Text="{Binding Path=name, Mode=OneWay}"></TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Width="60">Kirjailija</Label>
+                        <TextBox x:Name="tbKirjailija" Width="200" Text="{Binding Path=author, Mode=OneWay}"></TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Width="60">Maa</Label>
+                        <TextBox x:Name="tbMaa" Width="200" Text="{Binding Path=country, Mode=OneWay}"></TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Width="60">Vuosi</Label>
+                        <TextBox x:Name="tbVuosi" Width="50" Text="{Binding Path=year, Mode=OneWay}"></TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Width="60"></Label>
+                        <Button x:Name="btnTallenna" Width="65">Tallenna</Button>
+                        <Button x:Name="btnUusi" Width="65">Uusi</Button>
+                        <Button x:Name="btnPoista" Width="65">Poista</Button>
+                    </StackPanel>
+                </StackPanel>
+                
+                <StackPanel x:Name="spCustomers" Background="#FF2D8F62" Width="249">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Width="60">Asiakas</Label>
+                        <TextBlock Width="188" Text="{Binding Path=DisplayName, Mode=OneWay}"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Width="60">Etunimi</Label>
+                        <TextBox x:Name="tbNimis" Width="188" Text="{Binding Path=firstname, Mode=OneWay}"></TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Width="60">Sukunimi</Label>
+                        <TextBox x:Name="tbKirjailijas" Width="188" Text="{Binding Path=lastname, Mode=OneWay}"></TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Width="60">Tilauksia</Label>
+                        <TextBox x:Name="tbTilauksia" Width="50" Text="{Binding Path=OrdersCount, Mode=OneWay}"></TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Width="60"></Label>
+                        <Button x:Name="btnAsiakkaanTilaukset" Click="btnAsiakkaanTilaukset_Click">Asiakkaan tilaukset</Button>
+                    </StackPanel>
+                </StackPanel>
+                
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <DataGrid x:Name="grdDataGrid" AutoGenerateColumns="True" SelectionChanged="grdDataGrid_SelectionChanged" ItemsSource="{Binding}" Height="142" Width="603"></DataGrid>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <StatusBar x:Name="lblStatusBar" Width="601">Jees</StatusBar>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>
