@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IIO11300HT_Siloaho"
         mc:Ignorable="d"
-        Title="KokkiMikko" Height="350" Width="525">
+        Title="KokkiMikko" Height="600" Width="800">
     <Grid>
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="1*" />
@@ -19,27 +19,29 @@
     
     <!-- Control stackpanel -->
     <StackPanel Grid.Column="0" Grid.Row="0" Background="#FF2E973C">
-      <TextBox>Hae resepti</TextBox>
-      <Button x:Name="btnGetRecipes" Content="Hae reseptejä" Click="btnGetRecipes_Click"/>
+      <TextBox x:Name="tbGetRecipe" TextChanged="tbGetRecipe_TextChanged">Hae resepti</TextBox>
+      <Button x:Name="btnGetRecipes" Content="Etsi reseptejä" Click="btnGetRecipes_Click"/>
       <Button x:Name="btnGetTestRecipes" Click="btnGetTestRecipes_Click">Hae testidata</Button>
+      <ComboBox x:Name="cbRecipeType"></ComboBox>
     </StackPanel>
     
     <!-- Information dockpanel -->
     <DockPanel x:Name="dpList" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Background="#FF2E8D97">
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-                <TextBox x:Name="infoName" Text="{Binding Path=Name, Mode=OneWay}" Width="100"></TextBox>
-                <TextBox x:Name="infoTime" Text="{Binding Path=Time, Mode=OneWay}" Width="100"></TextBox>
+                <TextBox x:Name="infoName" Text="{Binding Path=Name, Mode=OneWay}" Width="80"></TextBox>
+                <TextBox x:Name="infoTime" Text="{Binding Path=Time, Mode=OneWay}" Width="80"></TextBox>
                 <Button x:Name="btnPrint" Click="btnPrint_Click">Tulosta</Button>
+                <Button x:Name="btnNew" Click="btnNew_Click">Uusi</Button>
                 <Button x:Name="btnSave" Click="btnSave_Click">Tallenna</Button>
                 <Button x:Name="btnRemove" Click="btnRemove_Click" Background="#FFE63232">Poista</Button>
             </StackPanel>
 
-            <TextBox x:Name="tbList" Text="{Binding Path=Instructions, Mode=OneWay}"></TextBox>
+            <TextBox x:Name="tbList" Text="{Binding Path=Instructions, Mode=OneWay}" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" AcceptsTab="True"></TextBox>
     </DockPanel>
     
     <!-- Recipe dockpanel -->
     <DockPanel x:Name="dpRecipes" Grid.Column="0" Grid.Row="1" Background="#FFA61818">
-      <DataGrid x:Name="dgRecipes" ItemsSource="{Binding}" SelectionChanged="DataGrid_SelectionChanged"/>
+      <DataGrid x:Name="dgRecipes" ItemsSource="{Binding}" SelectionChanged="DataGrid_SelectionChanged" CanUserAddRows="False"/>
         </DockPanel>
     
     <!-- MessagePanel -->

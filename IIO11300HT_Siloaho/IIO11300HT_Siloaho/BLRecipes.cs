@@ -10,22 +10,35 @@ namespace IIO11300HT_Siloaho
 {
   public class BLRecipes
   {
-    public static void getAll()
+    public static List<Recipe> GetAllRecipes(string searchWord)
     {
-      throw new Exception("Business class");
+      List<Recipe> recipes = new List<Recipe>();
+
+      try
+      {
+        DataTable dt = DBRecipes.GetAll(searchWord);
+
+        Recipe recipe;
+
+        foreach (DataRow dr in dt.Rows)
+        {
+          recipe = new Recipe(Convert.ToInt32(dr["id"]), Convert.ToString(dr["name"]), Convert.ToString(dr["time"]), Convert.ToString(dr["instructions"]));
+
+          recipes.Add(recipe);
+
+        }
+        return recipes;
+      }
+      catch (Exception)
+      {
+        throw;
+      }
     }
 
     public static List<Recipe> staticData()
     {
       List<Recipe> recipes = new List<Recipe>();
-      // Versio 1
-      /*
-      recipes.Add(new Recipe(1, "Keitto", "3h"));
-      recipes.Add(new Recipe(2, "Kossu", "1h"));
-      recipes.Add(new Recipe(3, "Leipä", "5h"));
-      */
 
-      // Versio 2
       try
       {
         DataTable dt = DBRecipes.getData();
@@ -47,12 +60,13 @@ namespace IIO11300HT_Siloaho
       }
     }
 
-    public static void SaveRecipe()
+    public static void SaveRecipe(Recipe recipe)
     {
       // If id exists update row. Else create new row.
+      //MessageBox.Show(recipe.Id + "  " + recipe.Name + "  " + recipe.Time + "  " + recipe.Instructions);
       try
       {
-        DBRecipes.SaveRecipe();
+        DBRecipes.SaveRecipe(recipe);
       }
       catch (Exception)
       {
@@ -65,15 +79,28 @@ namespace IIO11300HT_Siloaho
       throw new NotImplementedException();
     }
 
-    public static void RemoveRecipe()
+    public static void RemoveRecipe(Recipe recipe)
     {
-      string sMessageBoxText = "Haluatko varmasti poistaa reseptin xxxxx?";
-      string sCaption = "Respentin poistaminen";
+      try
+      {
+        string sMessageBoxText = "Haluatko varmasti poistaa reseptin" + recipe.Name + "?";
+        string sCaption = "Respentin poistaminen";
 
-      MessageBoxButton btnMessageBox = MessageBoxButton.YesNoCancel;
-      MessageBoxImage icnMessageBox = MessageBoxImage.Warning;
+        MessageBoxButton btnMessageBox = MessageBoxButton.YesNoCancel;
+        MessageBoxImage icnMessageBox = MessageBoxImage.Warning;
 
-      MessageBoxResult rsltMessageBox = MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
+        MessageBoxResult rsltMessageBox = MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
+
+        if (rsltMessageBox == MessageBoxResult.Yes)
+        {
+          DBRecipes.DeleteRecipe(recipe);
+        }
+      }
+      catch (Exception)
+      {
+        throw;
+      }
+
     }
   }
 }

@@ -28,6 +28,35 @@ namespace IIO11300HT_Siloaho
       return dt;
     }
 
+    public static DataTable GetAll(string searchWord = null)
+    {
+      // Generate query SELECT should be as array
+      string sql = "SELECT id, name, time, instructions FROM recipe";
+      if(searchWord != null)
+      {
+        sql += " WHERE name LIKE '%" + searchWord + "%'";
+      }
+
+      // TODO move connectionstring to constructor
+      string connStr = Properties.Settings.Default.connstr;
+
+      try
+      {
+        using (MySqlConnection conn = new MySqlConnection(connStr))
+        {
+          MySqlDataAdapter adapter = new MySqlDataAdapter(sql, conn);
+          DataSet ds = new DataSet();
+          adapter.Fill(ds);
+
+          return ds.Tables[0];
+        }
+      }
+      catch (Exception)
+      {
+        throw;
+      }
+    }
+
     public static DataTable getData()
     {
       string connStr = Properties.Settings.Default.connstr;
@@ -51,23 +80,35 @@ namespace IIO11300HT_Siloaho
       }
     }
 
-    public static void SaveRecipe()
+    public static void SaveRecipe(Recipe r)
     {
       // Recipe has no id. Create new row in database
       string connStr = Properties.Settings.Default.connstr;
-      MessageBox.Show("save");
+      MySqlConnection conn = null;
+      MySqlTransaction tr = null;
+
       try
       {
-        using (MySqlConnection conn = new MySqlConnection(connStr))
+        using (conn = new MySqlConnection(connStr))
         {
-          string sql = "SELECT id, name, time, instructions FROM recipe";
+          string sql = "UPDATE recipe SET `name`='"+ r.Name.ToString() +"', `time`='"+ r.Time.ToString() +"', `instructions`='"+ r.Instructions.ToString() +"' WHERE `id`='" +r.Id+"'";
 
-          MySqlDataAdapter adapter = new MySqlDataAdapter();
-          adapter.InsertCommand = new MySqlCommand("INSERT INTO recipe VALUES('Roskaa', 'Testi', 'Jees'", conn);
+          conn.Open();
+          tr = conn.BeginTransaction();
+
+          MySqlCommand cmd = new MySqlCommand();
+          cmd.Connection = conn;
+          cmd.Transaction = tr;
+
+          cmd.CommandText = sql;
+          cmd.ExecuteNonQuery();
+
+          tr.Commit();
         }
       }
       catch (Exception)
       {
+        //tr.Rollback();
         throw;
       }
     }
@@ -77,9 +118,29 @@ namespace IIO11300HT_Siloaho
        // Recipe has id. Update existing row
     }
 
-    public static void DeleteRecipe()
+    public static void DeleteRecipe(Recipe r)
     {
       // Remove recipe from database
+      string connStr = Properties.Settings.Default.connstr;
+
+      // TODO: Ensure that connection close is handled properly
+      try
+      {
+        using (MySqlConnection conn = new MySqlConnection(connStr))
+        {
+          conn.Open();
+          string sql = "DELETE FROM recipe WHERE id='" + r.Id + "'";
+
+          MySqlCommand cmd = new MySqlCommand();
+          cmd.Connection = conn;
+          cmd.CommandText = sql;
+          cmd.ExecuteNonQuery();
+        }
+      }
+      catch (Exception)
+      {
+        throw;
+      }
     }
   }
 }
