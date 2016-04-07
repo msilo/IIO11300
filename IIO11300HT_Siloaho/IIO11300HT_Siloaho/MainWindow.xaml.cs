@@ -20,7 +20,9 @@ namespace IIO11300HT_Siloaho
   /// </summary>
   public partial class MainWindow : Window
   {
+    private enum States {NoSelection, RecipeSelected, NewRecipe};
     private List<Recipe> recipes;
+
     public MainWindow()
     {
       InitializeComponent();
@@ -32,10 +34,8 @@ namespace IIO11300HT_Siloaho
       // Allocate memory
       recipes = new List<Recipe>();
 
-      // Disable buttons
-      btnPrint.IsEnabled = false;
-      btnSave.IsEnabled = false;
-      btnRemove.IsEnabled = false;
+      // Set state to NoSelection
+      StateMachine(States.NoSelection);
 
       // Populate combobox with recipe types
       // Call BL -> DB. Execute query -> return result -> populate combobox
@@ -46,10 +46,9 @@ namespace IIO11300HT_Siloaho
       try
       {
         dpList.DataContext = dgRecipes.SelectedItem;
-        // Enable buttons
-        btnPrint.IsEnabled = true;
-        btnSave.IsEnabled = true;
-        btnRemove.IsEnabled = true;
+
+        // Set state to RecipeSelected
+        StateMachine(States.RecipeSelected);
       }
       catch (Exception ex)
       {
@@ -61,20 +60,13 @@ namespace IIO11300HT_Siloaho
     {
       try
       {
-        recipes = BLRecipes.GetAllRecipes(tbGetRecipe.Text);
-        dgRecipes.ItemsSource = recipes;
-      }
-      catch (Exception ex)
-      {
-        MessageBox.Show(ex.Message);
-      }
-    }
+        // Set state to NoSelection
+        StateMachine(States.NoSelection);
 
-    private void btnGetTestRecipes_Click(object sender, RoutedEventArgs e)
-    {
-      try
-      {
-        recipes =  BLRecipes.staticData();
+        // Call business logic
+        recipes = BLRecipes.GetAllRecipes(tbGetRecipe.Text);
+        
+        // Set datagrid itessource
         dgRecipes.ItemsSource = recipes;
       }
       catch (Exception ex)
@@ -87,7 +79,13 @@ namespace IIO11300HT_Siloaho
     {
       try
       {
-        BLRecipes.PrintRecipe();
+        Recipe r = (Recipe)dpList.DataContext;
+        r.Name = tbRecipeName.Text;
+        r.Time = tbRecipeTime.Text;
+        r.Instructions = tbInstructions.Text;
+        r.Writer = tbRecipeWriter.Text;
+
+        BLRecipes.PrintRecipe(r);
       }
       catch (Exception ex)
       {
@@ -101,9 +99,10 @@ namespace IIO11300HT_Siloaho
       try
       {
         Recipe r = (Recipe)dpList.DataContext;
-        r.Name = infoName.Text;
-        r.Time = infoTime.Text;
-        r.Instructions = tbList.Text;
+        r.Name = tbRecipeName.Text;
+        r.Time = tbRecipeTime.Text;
+        r.Instructions = tbInstructions.Text;
+        r.Writer = tbRecipeWriter.Text;
         // Save to database
         BLRecipes.SaveRecipe(r);
         // Update datagrid
@@ -114,6 +113,7 @@ namespace IIO11300HT_Siloaho
         int index = recipes.IndexOf(temp);
         recipes[index] = r;
         dgRecipes.ItemsSource = recipes;
+        
       }
       catch (Exception ex)
       {
@@ -129,12 +129,23 @@ namespace IIO11300HT_Siloaho
         // Cast selected datacontext to Recipe object
         Recipe r = (Recipe)dpList.DataContext;
         // Send object to business tier
-        BLRecipes.RemoveRecipe(r);
+        string sMessageBoxText = "Haluatko varmasti poistaa reseptin" + r.Name + "?";
+        string sCaption = "Respentin poistaminen";
 
-        // Remove recipe from datagrid
-        dgRecipes.ItemsSource = null;
-        recipes.Remove(r);
-        dgRecipes.ItemsSource = recipes;
+        MessageBoxButton btnMessageBox = MessageBoxButton.YesNoCancel;
+        MessageBoxImage icnMessageBox = MessageBoxImage.Warning;
+
+        MessageBoxResult rsltMessageBox = MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
+
+        if (rsltMessageBox == MessageBoxResult.Yes)
+        {
+          BLRecipes.RemoveRecipe(r);
+
+          // Remove recipe from datagrid
+          dgRecipes.ItemsSource = null;
+          recipes.Remove(r);
+          dgRecipes.ItemsSource = recipes;
+        }
       }
       catch (Exception ex)
       {
@@ -158,7 +169,49 @@ namespace IIO11300HT_Siloaho
     {
       dpList.DataContext = null;
       btnRemove.IsEnabled = false;
-      infoName.Focus();
+      tbRecipeName.Focus();
+      StateMachine(States.NewRecipe);
     }
+
+    // Sets different state to UI
+    private void StateMachine(States state)
+    {
+      switch(state)
+      {
+        case States.NoSelection:
+          btnPrint.IsEnabled = false;
+          btnSave.IsEnabled = false;
+          btnRemove.IsEnabled = false;
+
+          tbRecipeName.IsEnabled = false;
+          tbRecipeTime.IsEnabled = false;
+          tbRecipeWriter.IsEnabled = false;
+          tbInstructions.IsEnabled = false;
+          break;
+        case States.RecipeSelected:
+          btnPrint.IsEnabled = true;
+          btnSave.IsEnabled = true;
+          btnRemove.IsEnabled = true;
+
+          tbRecipeName.IsEnabled = true;
+          tbRecipeTime.IsEnabled = true;
+          tbRecipeWriter.IsEnabled = true;
+          tbInstructions.IsEnabled = true;
+          break;
+        case States.NewRecipe:
+          btnPrint.IsEnabled = true;
+          btnSave.IsEnabled = true;
+          btnRemove.IsEnabled = true;
+
+          tbRecipeName.IsEnabled = true;
+          tbRecipeTime.IsEnabled = true;
+          tbRecipeWriter.IsEnabled = true;
+          tbInstructions.IsEnabled = true;
+          break;
+        default:
+          break;
+      }
+    }
+
   }
 }

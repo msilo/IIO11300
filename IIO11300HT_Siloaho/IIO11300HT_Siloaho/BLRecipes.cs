@@ -22,33 +22,8 @@ namespace IIO11300HT_Siloaho
 
         foreach (DataRow dr in dt.Rows)
         {
-          recipe = new Recipe(Convert.ToInt32(dr["id"]), Convert.ToString(dr["name"]), Convert.ToString(dr["time"]), Convert.ToString(dr["instructions"]));
+          recipe = new Recipe(Convert.ToInt32(dr["id"]), Convert.ToString(dr["name"]), Convert.ToString(dr["time"]), Convert.ToString(dr["instructions"]), Convert.ToString(dr["writer"]));
 
-          recipes.Add(recipe);
-
-        }
-        return recipes;
-      }
-      catch (Exception)
-      {
-        throw;
-      }
-    }
-
-    public static List<Recipe> staticData()
-    {
-      List<Recipe> recipes = new List<Recipe>();
-
-      try
-      {
-        DataTable dt = DBRecipes.getData();
-
-        Recipe recipe;
-
-        foreach (DataRow dr in dt.Rows)
-        {
-          recipe = new Recipe(Convert.ToInt32(dr["id"]), Convert.ToString(dr["name"]), Convert.ToString(dr["time"]), Convert.ToString(dr["instructions"]));
- 
           recipes.Add(recipe);
 
         }
@@ -63,7 +38,7 @@ namespace IIO11300HT_Siloaho
     public static void SaveRecipe(Recipe recipe)
     {
       // If id exists update row. Else create new row.
-      //MessageBox.Show(recipe.Id + "  " + recipe.Name + "  " + recipe.Time + "  " + recipe.Instructions);
+      // TODO implement saving properly
       try
       {
         DBRecipes.SaveRecipe(recipe);
@@ -74,27 +49,25 @@ namespace IIO11300HT_Siloaho
       }
     }
 
-    public static void PrintRecipe()
+    public static void PrintRecipe(Recipe r)
     {
-      throw new NotImplementedException();
+      // Before printing check that all fields are valid
+      if (r.Name == String.Empty || r.Time == String.Empty || r.Instructions == String.Empty || r.Writer == String.Empty)
+      {
+        throw new Exception("Reseptissä ei voi olla tyhjiä kenttiä!");
+      }
+      // If all fields are valid print the recipe
+      else
+      {
+        throw new NotImplementedException();
+      }
     }
 
     public static void RemoveRecipe(Recipe recipe)
     {
       try
       {
-        string sMessageBoxText = "Haluatko varmasti poistaa reseptin" + recipe.Name + "?";
-        string sCaption = "Respentin poistaminen";
-
-        MessageBoxButton btnMessageBox = MessageBoxButton.YesNoCancel;
-        MessageBoxImage icnMessageBox = MessageBoxImage.Warning;
-
-        MessageBoxResult rsltMessageBox = MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
-
-        if (rsltMessageBox == MessageBoxResult.Yes)
-        {
-          DBRecipes.DeleteRecipe(recipe);
-        }
+        DBRecipes.DeleteRecipe(recipe);
       }
       catch (Exception)
       {

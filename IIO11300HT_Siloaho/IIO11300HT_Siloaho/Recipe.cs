@@ -42,6 +42,15 @@ namespace IIO11300HT_Siloaho
       set { instructions = value; }
     }
 
+    private string writer;
+
+    public string Writer
+    {
+      get { return writer; }
+      set { writer = value; }
+    }
+
+
     #endregion
 
     #region CONSTRUCTORS
@@ -51,12 +60,13 @@ namespace IIO11300HT_Siloaho
 
     }
 
-    public Recipe(int id, string name, string time, string instructions)
+    public Recipe(int id, string name, string time, string instructions, string writer)
     {
       this.id = id;
       this.name = name;
       this.time = time;
       this.instructions = instructions;
+      this.writer = writer;
     }
 
     #endregion

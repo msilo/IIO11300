@@ -17,32 +17,38 @@
       <RowDefinition Height="25" />
     </Grid.RowDefinitions>
     
-    <!-- Control stackpanel -->
+    <!-- Search stackpanel -->
     <StackPanel Grid.Column="0" Grid.Row="0" Background="#FF2E973C">
       <TextBox x:Name="tbGetRecipe" TextChanged="tbGetRecipe_TextChanged">Hae resepti</TextBox>
       <Button x:Name="btnGetRecipes" Content="Etsi reseptejä" Click="btnGetRecipes_Click"/>
-      <Button x:Name="btnGetTestRecipes" Click="btnGetTestRecipes_Click">Hae testidata</Button>
       <ComboBox x:Name="cbRecipeType"></ComboBox>
     </StackPanel>
     
-    <!-- Information dockpanel -->
+    <!-- Recipe dockpanel -->
     <DockPanel x:Name="dpList" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Background="#FF2E8D97">
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-                <TextBox x:Name="infoName" Text="{Binding Path=Name, Mode=OneWay}" Width="80"></TextBox>
-                <TextBox x:Name="infoTime" Text="{Binding Path=Time, Mode=OneWay}" Width="80"></TextBox>
+                <TextBox x:Name="tbRecipeName" Text="{Binding Path=Name, Mode=OneWay}" Width="80"></TextBox>
+                <TextBox x:Name="tbRecipeTime" Text="{Binding Path=Time, Mode=OneWay}" Width="80"></TextBox>
+                <TextBox x:Name="tbRecipeWriter" Text="{Binding Path=Writer, Mode=OneWay}" Width="80"></TextBox>
                 <Button x:Name="btnPrint" Click="btnPrint_Click">Tulosta</Button>
                 <Button x:Name="btnNew" Click="btnNew_Click">Uusi</Button>
                 <Button x:Name="btnSave" Click="btnSave_Click">Tallenna</Button>
                 <Button x:Name="btnRemove" Click="btnRemove_Click" Background="#FFE63232">Poista</Button>
             </StackPanel>
 
-            <TextBox x:Name="tbList" Text="{Binding Path=Instructions, Mode=OneWay}" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" AcceptsTab="True"></TextBox>
+      <TextBox x:Name="tbInstructions" Text="{Binding Path=Instructions, Mode=OneWay}" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" AcceptsTab="True"></TextBox>
     </DockPanel>
     
-    <!-- Recipe dockpanel -->
+    <!-- RecipeList dockpanel -->
     <DockPanel x:Name="dpRecipes" Grid.Column="0" Grid.Row="1" Background="#FFA61818">
-      <DataGrid x:Name="dgRecipes" ItemsSource="{Binding}" SelectionChanged="DataGrid_SelectionChanged" CanUserAddRows="False"/>
-        </DockPanel>
+      <DataGrid x:Name="dgRecipes" ItemsSource="{Binding}" SelectionChanged="DataGrid_SelectionChanged" CanUserAddRows="False" AutoGenerateColumns="False">
+        <DataGrid.Columns>
+          <DataGridTextColumn Header="Ruoka" Binding="{Binding Name}"></DataGridTextColumn>
+          <DataGridTextColumn Header="Aika" Binding="{Binding Time}"></DataGridTextColumn>
+          <DataGridTextColumn Header="Kirjoittaja" Binding="{Binding Writer}"></DataGridTextColumn>
+        </DataGrid.Columns>
+      </DataGrid>
+    </DockPanel>
     
     <!-- MessagePanel -->
     <DockPanel Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Background="#FF3486B6">
