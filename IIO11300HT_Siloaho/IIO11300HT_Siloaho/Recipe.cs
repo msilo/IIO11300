@@ -69,6 +69,14 @@ namespace IIO11300HT_Siloaho
       this.writer = writer;
     }
 
+    public Recipe(string name, string time, string instructions, string writer)
+    {
+      this.name = name;
+      this.time = time;
+      this.instructions = instructions;
+      this.writer = writer;
+    }
+
     #endregion
 
     #region METHODS

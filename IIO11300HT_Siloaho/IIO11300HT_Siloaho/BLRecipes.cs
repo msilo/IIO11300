@@ -38,7 +38,6 @@ namespace IIO11300HT_Siloaho
     public static void SaveRecipe(Recipe recipe)
     {
       // If id exists update row. Else create new row.
-      // TODO implement saving properly
       try
       {
         DBRecipes.SaveRecipe(recipe);

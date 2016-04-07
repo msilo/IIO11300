@@ -79,13 +79,18 @@ namespace IIO11300HT_Siloaho
     {
       try
       {
-        Recipe r = (Recipe)dpList.DataContext;
-        r.Name = tbRecipeName.Text;
-        r.Time = tbRecipeTime.Text;
-        r.Instructions = tbInstructions.Text;
-        r.Writer = tbRecipeWriter.Text;
+        if (dpList.DataContext != null)
+        {
+          Recipe r = (Recipe)dpList.DataContext;
+          r.Name = tbRecipeName.Text;
+          r.Time = tbRecipeTime.Text;
+          r.Instructions = tbInstructions.Text;
+          r.Writer = tbRecipeWriter.Text;
 
-        BLRecipes.PrintRecipe(r);
+          BLRecipes.PrintRecipe(r);
+        }
+        else
+          throw new Exception("DataContext missing");
       }
       catch (Exception ex)
       {
@@ -98,22 +103,42 @@ namespace IIO11300HT_Siloaho
       // Save recipe into database
       try
       {
-        Recipe r = (Recipe)dpList.DataContext;
-        r.Name = tbRecipeName.Text;
-        r.Time = tbRecipeTime.Text;
-        r.Instructions = tbInstructions.Text;
-        r.Writer = tbRecipeWriter.Text;
-        // Save to database
-        BLRecipes.SaveRecipe(r);
-        // Update datagrid
-        dgRecipes.ItemsSource = null;
+        // If DataContext is set to null, that means that recipe is brand new
+        if (dpList.DataContext != null)
+        {
+          Recipe r = (Recipe)dpList.DataContext;
+          r.Name = tbRecipeName.Text;
+          r.Time = tbRecipeTime.Text;
+          r.Instructions = tbInstructions.Text;
+          r.Writer = tbRecipeWriter.Text;
+          // Save to database
+          BLRecipes.SaveRecipe(r);
+          // Update datagrid
+          dgRecipes.ItemsSource = null;
 
-        Recipe temp = recipes.Single(s => s.Id == r.Id);
+          Recipe temp = recipes.Single(s => s.Id == r.Id);
 
-        int index = recipes.IndexOf(temp);
-        recipes[index] = r;
-        dgRecipes.ItemsSource = recipes;
-        
+          int index = recipes.IndexOf(temp);
+          recipes[index] = r;
+          dgRecipes.ItemsSource = recipes;
+        }
+        // DataContext exists, so user had clicked existing recipe
+        else
+        {
+          Recipe r = new Recipe(tbRecipeName.Text, tbRecipeTime.Text, tbInstructions.Text, tbRecipeWriter.Text);
+
+          // Save to database
+          BLRecipes.SaveRecipe(r);
+          // Update datagrid
+          dgRecipes.ItemsSource = null;
+
+          // TODO: Impement datagrid add properly
+          Recipe temp = recipes.Single(s => s.Id == r.Id);
+
+          int index = recipes.IndexOf(temp);
+          recipes[index] = r;
+          dgRecipes.ItemsSource = recipes;
+        }
       }
       catch (Exception ex)
       {
@@ -168,8 +193,10 @@ namespace IIO11300HT_Siloaho
     private void btnNew_Click(object sender, RoutedEventArgs e)
     {
       dpList.DataContext = null;
-      btnRemove.IsEnabled = false;
+     
       tbRecipeName.Focus();
+
+      // Set state to NewRecipe
       StateMachine(States.NewRecipe);
     }
 

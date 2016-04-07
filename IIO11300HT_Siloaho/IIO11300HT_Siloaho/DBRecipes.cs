@@ -52,8 +52,15 @@ namespace IIO11300HT_Siloaho
       {
         using (conn = new MySqlConnection(connStr))
         {
-          string sql = "UPDATE recipe SET `name`='"+ r.Name.ToString() +"', `time`='"+ r.Time.ToString() +"', `instructions`='"+ r.Instructions.ToString() + "', `writer`='" + r.Writer.ToString() +"' WHERE `id`='" +r.Id+"'";
-
+          string sql = null;
+          if (r.Id > 0)
+          {
+            sql = "UPDATE recipe SET `name`='" + r.Name.ToString() + "', `time`='" + r.Time.ToString() + "', `instructions`='" + r.Instructions.ToString() + "', `writer`='" + r.Writer.ToString() + "' WHERE `id`='" + r.Id + "'";
+          }
+          else
+          {
+            sql = "INSERT INTO recipe (`name`, `time`, `instructions`, `writer`) VALUES('"+r.Name+"', '"+r.Time+"', '"+r.Instructions+"', '"+r.Writer+"')";
+          }
           conn.Open();
           tr = conn.BeginTransaction();
 
