@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IIO11300HT_Siloaho"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
         mc:Ignorable="d"
         Title="KokkiMikko" Height="600" Width="800">
     <Grid>
@@ -19,22 +20,35 @@
     
     <!-- Search stackpanel -->
     <StackPanel Grid.Column="0" Grid.Row="0" Background="#FF2E973C">
-      <TextBox x:Name="tbGetRecipe" TextChanged="tbGetRecipe_TextChanged">Hae resepti</TextBox>
-      <Button x:Name="btnGetRecipes" Content="Etsi reseptejä" Click="btnGetRecipes_Click"/>
-      <ComboBox x:Name="cbRecipeType"></ComboBox>
+      <fa:FontAwesome Icon="Binoculars" Text="&#xF024; Hakusana" HorizontalAlignment="Left" />
+      <TextBox x:Name="tbGetRecipe" TextChanged="tbGetRecipe_TextChanged"></TextBox>
+      <fa:FontAwesome Icon="Spoon" Text="&#xF024; Tyyppi" HorizontalAlignment="Left" />
+      <ListBox x:Name="lbRecipeType" SelectionMode="Multiple" Height="106">
+        <ListBox.Resources>
+          <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="SteelBlue"/>
+        </ListBox.Resources>
+      </ListBox>
+      <Button x:Name="btnGetRecipes" Content="Etsi reseptejä" Click="btnGetRecipes_Click" fa:Awesome.Content="Search"  
+        TextElement.FontFamily="pack://application:,,,/FontAwesome.WPF;component/#FontAwesome"/>
     </StackPanel>
     
     <!-- Recipe dockpanel -->
     <DockPanel x:Name="dpList" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Background="#FF2E8D97">
-        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-                <TextBox x:Name="tbRecipeName" Text="{Binding Path=Name, Mode=OneWay}" Width="80"></TextBox>
-                <TextBox x:Name="tbRecipeTime" Text="{Binding Path=Time, Mode=OneWay}" Width="80"></TextBox>
-                <TextBox x:Name="tbRecipeWriter" Text="{Binding Path=Writer, Mode=OneWay}" Width="80"></TextBox>
-                <Button x:Name="btnPrint" Click="btnPrint_Click">Tulosta</Button>
-                <Button x:Name="btnNew" Click="btnNew_Click">Uusi</Button>
-                <Button x:Name="btnSave" Click="btnSave_Click">Tallenna</Button>
-                <Button x:Name="btnRemove" Click="btnRemove_Click" Background="#FFE63232">Poista</Button>
-            </StackPanel>
+        <StackPanel Orientation="Vertical" DockPanel.Dock="Top">
+          <StackPanel Orientation="Horizontal">     
+            <TextBox x:Name="tbRecipeName" Text="{Binding Path=Name, Mode=OneWay}" Width="400"></TextBox>
+          </StackPanel>
+          <StackPanel Orientation="Horizontal">
+            <TextBox x:Name="tbRecipeTime" Text="{Binding Path=Time, Mode=OneWay}" Width="80"></TextBox>
+            <TextBox x:Name="tbRecipeWriter" Text="{Binding Path=Writer, Mode=OneWay}" Width="80"></TextBox>
+          </StackPanel>
+          <StackPanel Orientation="Horizontal">
+            <Button x:Name="btnPrint" Click="btnPrint_Click" ToolTip="">Tulosta</Button>
+            <Button x:Name="btnNew" Click="btnNew_Click">Uusi</Button>
+            <Button x:Name="btnSave" Click="btnSave_Click">Tallenna</Button>
+            <Button x:Name="btnRemove" Click="btnRemove_Click" Background="#FFE63232">Poista</Button>
+          </StackPanel>
+        </StackPanel>
 
       <TextBox x:Name="tbInstructions" Text="{Binding Path=Instructions, Mode=OneWay}" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" AcceptsTab="True"></TextBox>
     </DockPanel>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -10,13 +11,13 @@ namespace IIO11300HT_Siloaho
 {
   public class BLRecipes
   {
-    public static List<Recipe> GetAllRecipes(string searchWord)
+    public static List<Recipe> GetAllRecipes(string searchWord, IList types)
     {
       List<Recipe> recipes = new List<Recipe>();
 
       try
       {
-        DataTable dt = DBRecipes.GetAll(searchWord);
+        DataTable dt = DBRecipes.GetAll(searchWord, types);
 
         Recipe recipe;
 
@@ -74,5 +75,31 @@ namespace IIO11300HT_Siloaho
       }
 
     }
+
+    public static List<string> GetAllTypes()
+    {
+      List<string> types = new List<string>();
+      try
+      {
+        DataTable dt = DBRecipes.GetAllTypes();
+
+        string temp = null;
+
+        foreach (DataRow dr in dt.Rows)
+        {
+          //recipe = new Recipe(Convert.ToInt32(dr["id"]), Convert.ToString(dr["name"]), Convert.ToString(dr["time"]), Convert.ToString(dr["instructions"]), Convert.ToString(dr["writer"]));
+          temp = Convert.ToString(dr["typename"]);
+          //recipes.Add(recipe);
+          types.Add(temp);
+        }
+
+        return types;
+      }
+      catch (Exception)
+      {
+        throw;
+      }
+    }
+
   }
 }

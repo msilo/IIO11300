@@ -22,6 +22,7 @@ namespace IIO11300HT_Siloaho
   {
     private enum States {NoSelection, RecipeSelected, NewRecipe};
     private List<Recipe> recipes;
+    private List<string> recipeTypes;
 
     public MainWindow()
     {
@@ -31,14 +32,22 @@ namespace IIO11300HT_Siloaho
 
     private void Init()
     {
-      // Allocate memory
-      recipes = new List<Recipe>();
+      try
+      {
+        // Allocate memory
+        recipes = new List<Recipe>();
+        recipeTypes = new List<string>();
 
-      // Set state to NoSelection
-      StateMachine(States.NoSelection);
+        // Set state to NoSelection
+        StateMachine(States.NoSelection);
 
-      // Populate combobox with recipe types
-      // Call BL -> DB. Execute query -> return result -> populate combobox
+        // Get all recipetypes and populate ListBox control
+        lbRecipeType.ItemsSource = BLRecipes.GetAllTypes();
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show(ex.Message);
+      }
     }
 
     private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -60,11 +69,13 @@ namespace IIO11300HT_Siloaho
     {
       try
       {
+        System.Collections.IList types = lbRecipeType.SelectedItems;
+
         // Set state to NoSelection
         StateMachine(States.NoSelection);
 
-        // Call business logic
-        recipes = BLRecipes.GetAllRecipes(tbGetRecipe.Text);
+        // Call business logic, find recipes
+        recipes = BLRecipes.GetAllRecipes(tbGetRecipe.Text, types);
         
         // Set datagrid itessource
         dgRecipes.ItemsSource = recipes;
