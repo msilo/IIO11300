@@ -129,11 +129,6 @@ namespace IIO11300HT_Siloaho
       }
     }
 
-    public static void UpdateRecipe()
-    {
-       // Recipe has id. Update existing row
-    }
-
     public static void DeleteRecipe(Recipe r)
     {
       // Remove recipe from database
@@ -149,6 +144,7 @@ namespace IIO11300HT_Siloaho
 
           MySqlCommand cmd = new MySqlCommand();
           cmd.Connection = conn;
+          // Delete rows from recipe
           cmd.CommandText = sql;
           cmd.ExecuteNonQuery();
         }

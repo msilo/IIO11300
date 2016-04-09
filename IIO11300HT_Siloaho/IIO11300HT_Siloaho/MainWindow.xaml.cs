@@ -88,20 +88,34 @@ namespace IIO11300HT_Siloaho
 
     private void btnPrint_Click(object sender, RoutedEventArgs e)
     {
+      PrintDialog pd = new PrintDialog();
+
       try
       {
-        if (dpList.DataContext != null)
+        if (pd.ShowDialog() == true)
         {
-          Recipe r = (Recipe)dpList.DataContext;
-          r.Name = tbRecipeName.Text;
-          r.Time = tbRecipeTime.Text;
-          r.Instructions = tbInstructions.Text;
-          r.Writer = tbRecipeWriter.Text;
+          if (dpList.DataContext != null)
+          {
+            // Get recipe from dockpanel
+            Recipe r = (Recipe)dpList.DataContext;
+            r.Name = tbRecipeName.Text;
+            r.Time = tbRecipeTime.Text;
+            r.Instructions = tbInstructions.Text;
+            r.Writer = tbRecipeWriter.Text;
 
-          BLRecipes.PrintRecipe(r);
+            // Generate flow document
+            FlowDocument doc = BLRecipes.PrintRecipe(r);
+            doc.Name = "FlowDoc";
+
+            // Create IDocumentPaginatorSource from FlowDocument
+            IDocumentPaginatorSource idpSource = doc;
+
+            // Call PrintDocument method to send document to printer
+            pd.PrintDocument(idpSource.DocumentPaginator, "Resepti");
+          }
+          else
+            throw new Exception("DataContext missing");
         }
-        else
-          throw new Exception("DataContext missing");
       }
       catch (Exception ex)
       {

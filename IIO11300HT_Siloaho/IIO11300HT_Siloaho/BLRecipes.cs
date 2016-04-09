@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Documents;
 
 namespace IIO11300HT_Siloaho
 {
@@ -49,7 +50,7 @@ namespace IIO11300HT_Siloaho
       }
     }
 
-    public static void PrintRecipe(Recipe r)
+    public static FlowDocument PrintRecipe(Recipe r)
     {
       // Before printing check that all fields are valid
       if (r.Name == String.Empty || r.Time == String.Empty || r.Instructions == String.Empty || r.Writer == String.Empty)
@@ -59,7 +60,33 @@ namespace IIO11300HT_Siloaho
       // If all fields are valid print the recipe
       else
       {
-        throw new NotImplementedException();
+        // Create a FlowDocument
+        FlowDocument doc = new FlowDocument();
+
+        // Create a Section
+        Section sec = new Section();
+
+        // Create first Paragraph
+        Paragraph p1 = new Paragraph();
+
+        // Create and add a new Bold, Italic and Underline
+        Bold bld = new Bold();
+        bld.Inlines.Add(new Run("First Paragraph"));
+        Italic italicBld = new Italic();
+        italicBld.Inlines.Add(bld);
+        Underline underlineItalicBld = new Underline();
+        underlineItalicBld.Inlines.Add(italicBld);
+
+        // Add Bold, Italic, Underline to Paragraph
+        p1.Inlines.Add(underlineItalicBld);
+
+        // Add Paragraph to Section
+        sec.Blocks.Add(p1);
+
+        // Add Section to FlowDocument
+        doc.Blocks.Add(sec);
+
+        return doc;
       }
     }
 
