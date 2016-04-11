@@ -37,12 +37,12 @@ namespace IIO11300HT_Siloaho
       }
     }
 
-    public static void SaveRecipe(Recipe recipe)
+    public static void SaveRecipe(Recipe recipe, IList types)
     {
-      // If id exists update row. Else create new row.
+      // Send information to database layer
       try
       {
-        DBRecipes.SaveRecipe(recipe);
+        DBRecipes.SaveRecipe(recipe, types);
       }
       catch (Exception)
       {
@@ -65,13 +65,15 @@ namespace IIO11300HT_Siloaho
 
         // Create a Section
         Section sec = new Section();
+        Section sec2 = new Section();
 
         // Create first Paragraph
         Paragraph p1 = new Paragraph();
+        Paragraph p2 = new Paragraph();
 
         // Create and add a new Bold, Italic and Underline
         Bold bld = new Bold();
-        bld.Inlines.Add(new Run("First Paragraph"));
+        bld.Inlines.Add(new Run(r.Name));
         Italic italicBld = new Italic();
         italicBld.Inlines.Add(bld);
         Underline underlineItalicBld = new Underline();
@@ -79,12 +81,18 @@ namespace IIO11300HT_Siloaho
 
         // Add Bold, Italic, Underline to Paragraph
         p1.Inlines.Add(underlineItalicBld);
+        p1.Inlines.Add(new Run("\n" + r.Time));
+        p1.Inlines.Add(new Run("\n" + r.Writer));
+
+        p2.Inlines.Add(new Run(r.Instructions));
 
         // Add Paragraph to Section
         sec.Blocks.Add(p1);
+        sec2.Blocks.Add(p2);
 
         // Add Section to FlowDocument
         doc.Blocks.Add(sec);
+        doc.Blocks.Add(sec2);
 
         return doc;
       }

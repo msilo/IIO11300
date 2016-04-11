@@ -89,9 +89,8 @@ namespace IIO11300HT_Siloaho
       }
     }
 
-    public static void SaveRecipe(Recipe r)
+    public static void SaveRecipe(Recipe r, IList types)
     {
-      // Recipe has no id. Create new row in database
       string connStr = Properties.Settings.Default.connstr;
       MySqlConnection conn = null;
       MySqlTransaction tr = null;
@@ -101,13 +100,25 @@ namespace IIO11300HT_Siloaho
         using (conn = new MySqlConnection(connStr))
         {
           string sql = null;
+          // Recipe has id. Update existing row
           if (r.Id > 0)
           {
             sql = "UPDATE recipe SET `name`='" + r.Name.ToString() + "', `time`='" + r.Time.ToString() + "', `instructions`='" + r.Instructions.ToString() + "', `writer`='" + r.Writer.ToString() + "' WHERE `id`='" + r.Id + "'";
+            // Add types if are defined
+            foreach (string s in types)
+            {
+              MessageBox.Show(s);
+            }
           }
+          // Recipe has no id. Create new row in database
           else
           {
             sql = "INSERT INTO recipe (`name`, `time`, `instructions`, `writer`) VALUES('"+r.Name+"', '"+r.Time+"', '"+r.Instructions+"', '"+r.Writer+"')";
+            // Add types if are defined
+            foreach (string s in types)
+            {
+              MessageBox.Show(s);
+            }
           }
           conn.Open();
           tr = conn.BeginTransaction();

@@ -114,7 +114,7 @@ namespace IIO11300HT_Siloaho
             pd.PrintDocument(idpSource.DocumentPaginator, "Resepti");
           }
           else
-            throw new Exception("DataContext missing");
+            throw new Exception("DataContext missing. Taisi olla uusi :)");
         }
       }
       catch (Exception ex)
@@ -137,7 +137,7 @@ namespace IIO11300HT_Siloaho
           r.Instructions = tbInstructions.Text;
           r.Writer = tbRecipeWriter.Text;
           // Save to database
-          BLRecipes.SaveRecipe(r);
+          BLRecipes.SaveRecipe(r, lbRecipeType.SelectedItems);
           // Update datagrid
           dgRecipes.ItemsSource = null;
 
@@ -153,7 +153,7 @@ namespace IIO11300HT_Siloaho
           Recipe r = new Recipe(tbRecipeName.Text, tbRecipeTime.Text, tbInstructions.Text, tbRecipeWriter.Text);
 
           // Save to database
-          BLRecipes.SaveRecipe(r);
+          BLRecipes.SaveRecipe(r, lbRecipeType.SelectedItems);
           // Update datagrid
           dgRecipes.ItemsSource = null;
 
