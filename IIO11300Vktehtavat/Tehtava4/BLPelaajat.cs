@@ -8,10 +8,10 @@ using System.Xml.Linq;
 
 namespace Tehtava4
 {
-  class XMLManager
+  class BLPelaajat
   {
     XElement xe;
-    public XMLManager()
+    public BLPelaajat()
     {
       
     }
@@ -31,13 +31,12 @@ namespace Tehtava4
           seuraNimet.Add(item.Value);
         }
         
+        return seuraNimet;
       }
-      catch (Exception ex)
+      catch (Exception)
       {
-        MessageBox.Show(ex.Message);
+        throw;
       }
-
-      return seuraNimet;
     }
 
     public List<Pelaaja> GetPelaajat(string file)
@@ -55,18 +54,15 @@ namespace Tehtava4
           var sukunimi = item.Element("sukunimi").Value;
           var hinta = item.Element("siirtohinta").Value;
           var seura = item.Element("seura").Value;
-          //MessageBox.Show(shit+shite+poo+crap);
+         
           pelaajat.Add(new Pelaaja(etunimi, sukunimi, int.Parse(hinta), seura));
-          //result += decimal.Parse(item.Value);
         }
-
+        return pelaajat;
       }
-      catch (Exception ex)
+      catch (Exception)
       {
-        MessageBox.Show(ex.Message);
-      }
-
-      return pelaajat;
+        throw;
+      }      
     }
   }
 }
