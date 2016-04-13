@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace IIO11300HT_Siloaho
 {
@@ -37,12 +39,18 @@ namespace IIO11300HT_Siloaho
       }
     }
 
-    public static void SaveRecipe(Recipe recipe, IList types)
+    public static int SaveRecipe(Recipe recipe, IList types)
     {
       // Send information to database layer
       try
       {
-        DBRecipes.SaveRecipe(recipe, types);
+        // Before printing check that all fields are valid
+        if (recipe.Name == String.Empty || recipe.Time == String.Empty || recipe.Instructions == String.Empty || recipe.Writer == String.Empty)
+        {
+          throw new Exception("Reseptissä ei voi olla tyhjiä kenttiä!");
+        }
+
+        return DBRecipes.SaveRecipe(recipe, types);
       }
       catch (Exception)
       {
@@ -122,9 +130,8 @@ namespace IIO11300HT_Siloaho
 
         foreach (DataRow dr in dt.Rows)
         {
-          //recipe = new Recipe(Convert.ToInt32(dr["id"]), Convert.ToString(dr["name"]), Convert.ToString(dr["time"]), Convert.ToString(dr["instructions"]), Convert.ToString(dr["writer"]));
           temp = Convert.ToString(dr["typename"]);
-          //recipes.Add(recipe);
+
           types.Add(temp);
         }
 
@@ -134,6 +141,30 @@ namespace IIO11300HT_Siloaho
       {
         throw;
       }
+    }
+
+    // Reads config file for database connection and sets MySql class properties
+    public static void GetConnStr()
+    {
+      if (System.IO.File.Exists("conf.xml"))
+      {
+        XmlDocument xmldoc = new XmlDocument();
+        xmldoc.Load("conf.xml");
+
+        XmlNodeList xn = xmldoc.SelectNodes("/Conf");
+
+        // Set MySql properties
+        Mysql.Server = xn[0]["Server"].InnerText;
+        Mysql.Database = xn[0]["Database"].InnerText;
+        Mysql.Username = xn[0]["Username"].InnerText;
+        Mysql.Password = xn[0]["Password"].InnerText;
+      }
+
+      else
+      {
+        MessageBox.Show("Tietokannan asetustiedostoa conf.xml ei löydy");
+      }
+
     }
 
   }

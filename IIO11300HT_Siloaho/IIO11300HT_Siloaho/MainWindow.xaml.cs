@@ -34,6 +34,9 @@ namespace IIO11300HT_Siloaho
     {
       try
       {
+        // Load database configurations
+        BLRecipes.GetConnStr();
+
         // Allocate memory
         recipes = new List<Recipe>();
         recipeTypes = new List<string>();
@@ -79,6 +82,9 @@ namespace IIO11300HT_Siloaho
         
         // Set datagrid itessource
         dgRecipes.ItemsSource = recipes;
+
+        // Set feedback string
+        tbFeedBack.Text = "Löytyi " + recipes.Count + " reseptiä.";
       }
       catch (Exception ex)
       {
@@ -112,9 +118,10 @@ namespace IIO11300HT_Siloaho
 
             // Call PrintDocument method to send document to printer
             pd.PrintDocument(idpSource.DocumentPaginator, "Resepti");
+
+            // Set feedback string
+            tbFeedBack.Text = "Resepti " + r.Name + " tulostettu.";
           }
-          else
-            throw new Exception("DataContext missing. Taisi olla uusi :)");
         }
       }
       catch (Exception ex)
@@ -128,7 +135,7 @@ namespace IIO11300HT_Siloaho
       // Save recipe into database
       try
       {
-        // If DataContext is set to null, that means that recipe is brand new
+        // DataContext exists, user had clicked existing recipe
         if (dpList.DataContext != null)
         {
           Recipe r = (Recipe)dpList.DataContext;
@@ -136,34 +143,40 @@ namespace IIO11300HT_Siloaho
           r.Time = tbRecipeTime.Text;
           r.Instructions = tbInstructions.Text;
           r.Writer = tbRecipeWriter.Text;
+
           // Save to database
           BLRecipes.SaveRecipe(r, lbRecipeType.SelectedItems);
+
           // Update datagrid
-          dgRecipes.ItemsSource = null;
+          //dgRecipes.ItemsSource = null;
 
           Recipe temp = recipes.Single(s => s.Id == r.Id);
-
           int index = recipes.IndexOf(temp);
           recipes[index] = r;
           dgRecipes.ItemsSource = recipes;
+          
+          // Set feedback string
+          tbFeedBack.Text = "Resepti " + r.Name + " päivitetty.";
         }
-        // DataContext exists, so user had clicked existing recipe
+        // If DataContext is set to null, that means that recipe is brand new
         else
         {
           Recipe r = new Recipe(tbRecipeName.Text, tbRecipeTime.Text, tbInstructions.Text, tbRecipeWriter.Text);
 
-          // Save to database
-          BLRecipes.SaveRecipe(r, lbRecipeType.SelectedItems);
+          // Save to database, Get id
+          int index = BLRecipes.SaveRecipe(r, lbRecipeType.SelectedItems);
+          // Set id
+          r.Id = index;
           // Update datagrid
-          dgRecipes.ItemsSource = null;
-
-          // TODO: Impement datagrid add properly
-          Recipe temp = recipes.Single(s => s.Id == r.Id);
-
-          int index = recipes.IndexOf(temp);
-          recipes[index] = r;
+          //dgRecipes.ItemsSource = null;
+          recipes.Add(r);
           dgRecipes.ItemsSource = recipes;
+
+          // Set feedback string
+          tbFeedBack.Text = "Resepti " + r.Name + " lisätty.";
         }
+
+        StateMachine(States.NoSelection);
       }
       catch (Exception ex)
       {
@@ -179,7 +192,7 @@ namespace IIO11300HT_Siloaho
         // Cast selected datacontext to Recipe object
         Recipe r = (Recipe)dpList.DataContext;
         // Send object to business tier
-        string sMessageBoxText = "Haluatko varmasti poistaa reseptin" + r.Name + "?";
+        string sMessageBoxText = "Haluatko varmasti poistaa reseptin " + r.Name + "?";
         string sCaption = "Respentin poistaminen";
 
         MessageBoxButton btnMessageBox = MessageBoxButton.YesNoCancel;
@@ -195,6 +208,12 @@ namespace IIO11300HT_Siloaho
           dgRecipes.ItemsSource = null;
           recipes.Remove(r);
           dgRecipes.ItemsSource = recipes;
+
+          // Set state to NoSelection
+          StateMachine(States.NoSelection);
+
+          // Set feedback string
+          tbFeedBack.Text = "Resepti " + r.Name + " poistettu.";
         }
       }
       catch (Exception ex)

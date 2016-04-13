@@ -44,7 +44,7 @@ namespace IIO11300HT_Siloaho
       sql += " GROUP BY r.name";
 
       // TODO move connectionstring to constructor
-      string connStr = Properties.Settings.Default.connstr;
+      string connStr = Mysql.GetConnStr();
 
       // TODO Remove duplicate code. Impelement private method for SELECT
       try
@@ -70,7 +70,7 @@ namespace IIO11300HT_Siloaho
       string sql = "SELECT typename FROM type";
 
       // TODO move connectionstring to constructor
-      string connStr = Properties.Settings.Default.connstr;
+      string connStr = Mysql.GetConnStr();
 
       try
       {
@@ -89,14 +89,15 @@ namespace IIO11300HT_Siloaho
       }
     }
 
-    public static void SaveRecipe(Recipe r, IList types)
+    public static int SaveRecipe(Recipe r, IList types)
     {
-      string connStr = Properties.Settings.Default.connstr;
+      string connStr = Mysql.GetConnStr();
       MySqlConnection conn = null;
       MySqlTransaction tr = null;
 
       try
       {
+        int index = 0;
         using (conn = new MySqlConnection(connStr))
         {
           string sql = null;
@@ -104,20 +105,20 @@ namespace IIO11300HT_Siloaho
           if (r.Id > 0)
           {
             sql = "UPDATE recipe SET `name`='" + r.Name.ToString() + "', `time`='" + r.Time.ToString() + "', `instructions`='" + r.Instructions.ToString() + "', `writer`='" + r.Writer.ToString() + "' WHERE `id`='" + r.Id + "'";
-            // Add types if are defined
+            // Add types if they are defined
             foreach (string s in types)
             {
-              MessageBox.Show(s);
+              // TODO: Implement in next version
             }
           }
           // Recipe has no id. Create new row in database
           else
           {
             sql = "INSERT INTO recipe (`name`, `time`, `instructions`, `writer`) VALUES('"+r.Name+"', '"+r.Time+"', '"+r.Instructions+"', '"+r.Writer+"')";
-            // Add types if are defined
+            // Add types if they are defined
             foreach (string s in types)
             {
-              MessageBox.Show(s);
+              // TODO: Implement in next version
             }
           }
           conn.Open();
@@ -131,11 +132,15 @@ namespace IIO11300HT_Siloaho
           cmd.ExecuteNonQuery();
 
           tr.Commit();
+          // Get last inserted id
+          index = (int)cmd.LastInsertedId;
+          // Return row id
+          return index;
         }
       }
       catch (Exception)
       {
-        //tr.Rollback();
+        tr.Rollback();
         throw;
       }
     }
@@ -143,7 +148,7 @@ namespace IIO11300HT_Siloaho
     public static void DeleteRecipe(Recipe r)
     {
       // Remove recipe from database
-      string connStr = Properties.Settings.Default.connstr;
+      string connStr = Mysql.GetConnStr();
 
       // TODO: Ensure that connection close is handled properly
       try

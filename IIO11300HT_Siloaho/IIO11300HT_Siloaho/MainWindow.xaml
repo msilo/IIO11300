@@ -35,18 +35,21 @@
     <!-- Recipe dockpanel -->
     <DockPanel x:Name="dpList" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Background="#FF2E8D97">
         <StackPanel Orientation="Vertical" DockPanel.Dock="Top">
-          <StackPanel Orientation="Horizontal">     
-            <TextBox x:Name="tbRecipeName" Text="{Binding Path=Name, Mode=OneWay}" Width="400"></TextBox>
+          <StackPanel Orientation="Horizontal">
+            <TextBlock Margin="5,3,0,2" Width="30">Nimi</TextBlock>
+          <TextBox x:Name="tbRecipeName" Text="{Binding Path=Name, Mode=OneWay}" Width="400" Margin="5,0,0,2"></TextBox>
           </StackPanel>
           <StackPanel Orientation="Horizontal">
+            <TextBlock Margin="5,3,0,2" Width="35">Aika</TextBlock>
             <TextBox x:Name="tbRecipeTime" Text="{Binding Path=Time, Mode=OneWay}" Width="80"></TextBox>
-            <TextBox x:Name="tbRecipeWriter" Text="{Binding Path=Writer, Mode=OneWay}" Width="80"></TextBox>
+            <TextBlock Margin="5,3,0,2">Kirjoittaja</TextBlock>
+          <TextBox x:Name="tbRecipeWriter" Text="{Binding Path=Writer, Mode=OneWay}" Width="260" Margin="5,0,0,2"></TextBox>
           </StackPanel>
           <StackPanel Orientation="Horizontal">
-            <Button x:Name="btnPrint" Click="btnPrint_Click" ToolTip="">Tulosta</Button>
-            <Button x:Name="btnNew" Click="btnNew_Click">Uusi</Button>
-            <Button x:Name="btnSave" Click="btnSave_Click">Tallenna</Button>
-            <Button x:Name="btnRemove" Click="btnRemove_Click" Background="#FFE63232">Poista</Button>
+          <Button x:Name="btnPrint" Click="btnPrint_Click" Margin="5,3,0,2">Tulosta</Button>
+          <Button x:Name="btnNew" Click="btnNew_Click" Margin="1,3,0,2">Uusi</Button>
+          <Button x:Name="btnSave" Click="btnSave_Click" Margin="1,3,0,2">Tallenna</Button>
+          <Button x:Name="btnRemove" Click="btnRemove_Click" Background="#FFE63232" Margin="1,3,0,2">Poista</Button>
           </StackPanel>
         </StackPanel>
 
@@ -55,7 +58,7 @@
     
     <!-- RecipeList dockpanel -->
     <DockPanel x:Name="dpRecipes" Grid.Column="0" Grid.Row="1" Background="#FFA61818">
-      <DataGrid x:Name="dgRecipes" ItemsSource="{Binding}" SelectionChanged="DataGrid_SelectionChanged" CanUserAddRows="False" AutoGenerateColumns="False">
+      <DataGrid x:Name="dgRecipes" ItemsSource="{Binding}" SelectionChanged="DataGrid_SelectionChanged" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True">
         <DataGrid.Columns>
           <DataGridTextColumn Header="Ruoka" Binding="{Binding Name}"></DataGridTextColumn>
           <DataGridTextColumn Header="Aika" Binding="{Binding Time}"></DataGridTextColumn>
@@ -66,13 +69,7 @@
     
     <!-- MessagePanel -->
     <DockPanel Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Background="#FF3486B6">
-      <Menu IsMainMenu="True">
-        <MenuItem Header="_File" />
-        <MenuItem Header="_Edit" />
-        <MenuItem Header="_View" />
-        <MenuItem Header="_Window" />
-        <MenuItem Header="_Help" />
-      </Menu>
+      <TextBlock x:Name="tbFeedBack" Text="Tervetuloa!" Margin="5,3,0,2"></TextBlock>
     </DockPanel>
   </Grid>
 </Window>
