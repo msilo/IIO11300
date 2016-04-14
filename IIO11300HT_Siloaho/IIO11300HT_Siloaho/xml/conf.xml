@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<Conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<Server>mysql.labranet.jamk.fi</Server>
+	<Database>G8499</Database>
+	<Username>G8499</Username>
+	<Password>sSG0lJNAnZxykyxnvPunMZqdEzztwknm</Password>
+</Conf>

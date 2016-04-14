@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -146,11 +147,12 @@ namespace IIO11300HT_Siloaho
     // Reads config file for database connection and sets MySql class properties
     public static void GetConnStr()
     {
-      if (System.IO.File.Exists("conf.xml"))
+      string xmlPath = Path.Combine(Environment.CurrentDirectory, @"xml\conf.xml");
+      if (System.IO.File.Exists(xmlPath))
       {
         XmlDocument xmldoc = new XmlDocument();
-        xmldoc.Load("conf.xml");
-
+        xmldoc.Load(xmlPath);
+        
         XmlNodeList xn = xmldoc.SelectNodes("/Conf");
 
         // Set MySql properties
