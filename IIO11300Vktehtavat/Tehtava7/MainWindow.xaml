@@ -7,6 +7,32 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        
+    <StackPanel Orientation="Vertical">
+      <TextBlock FontSize="21.333">Tarkistettava salasana:</TextBlock>
+      <TextBox x:Name="tbInput" FontSize="21.333" TextChanged="tbInput_TextChanged"/>
+      <StackPanel Orientation="Horizontal">
+        <TextBlock FontSize="21.333">Merkkejä:</TextBlock>
+        <TextBlock x:Name="tbMerkkeja" FontSize="21.333">0</TextBlock>
+      </StackPanel>
+      <StackPanel Orientation="Horizontal">
+        <TextBlock FontSize="21.333">Isoja kirjaimia:</TextBlock>
+        <TextBlock x:Name="tbIsoja" FontSize="21.333">0</TextBlock>
+      </StackPanel>
+      <StackPanel Orientation="Horizontal">
+        <TextBlock FontSize="21.333">Pieniä kirjaimia:</TextBlock>
+        <TextBlock x:Name="tbPienia" FontSize="21.333">0</TextBlock>
+      </StackPanel>
+      <StackPanel Orientation="Horizontal">
+        <TextBlock FontSize="21.333">Numeroita:</TextBlock>
+        <TextBlock x:Name="tbNumeroita" FontSize="21.333">0</TextBlock>
+      </StackPanel>
+      <StackPanel Orientation="Horizontal">
+        <TextBlock FontSize="21.333">Erikoismerkkejä:</TextBlock>
+        <TextBlock x:Name="tbErikois" FontSize="21.333">0</TextBlock>
+      </StackPanel>
+      <DockPanel>
+        <TextBlock x:Name="tbFeedback" FontSize="90" HorizontalAlignment="Center" VerticalAlignment="Center">asd</TextBlock>
+      </DockPanel>
+    </StackPanel>
     </Grid>
 </Window>
