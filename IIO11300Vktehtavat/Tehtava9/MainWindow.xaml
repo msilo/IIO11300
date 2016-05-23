@@ -1,0 +1,18 @@
+﻿<Window x:Class="Tehtava9.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Tehtava9"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+    <StackPanel>
+      <Button x:Name="btnGetCustomers">Hae asiakkaat</Button>
+      <Button x:Name="btnNewCustomer">Tee uusi</Button>
+      <Button x:Name="btnRemoveSelected" >Poista valittu</Button>
+      <Button x:Name="btnSaveChanges">Tallenna muutokset</Button>
+      <DataGrid x:Name="dgCustomers" ></DataGrid>
+    </StackPanel>
+    </Grid>
+</Window>
