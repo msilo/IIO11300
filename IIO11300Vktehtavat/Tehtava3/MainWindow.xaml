@@ -5,8 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tehtava3"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+        Title="MainWindow" Height="398.78" Width="355.488">
+  <Grid Background="#FFE2E2E2">
+    <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="27,26,0,0" TextWrapping="Wrap" Text="Hakemisto" VerticalAlignment="Top"/>
+    <TextBox x:Name="tbFolder" HorizontalAlignment="Left" Height="23" Margin="109,23,0,0" TextWrapping="Wrap" Text="d:\G8499\filut" VerticalAlignment="Top" Width="205"/>
+    <Button x:Name="btnGetFiles" Content="Hae tiedostot" HorizontalAlignment="Left" Margin="109,51,0,0" VerticalAlignment="Top" Width="120" Click="btnGetFiles_Click"/>
+    <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="27,81,0,0" TextWrapping="Wrap" Text="Löydetyt tiedostot" VerticalAlignment="Top"/>
+    <ListBox x:Name="lbFiles" HorizontalAlignment="Left" Height="116" Margin="27,102,0,0" VerticalAlignment="Top" Width="287"/>
+    <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" Margin="27,239,0,0" TextWrapping="Wrap" Text="Tulostiedosto" VerticalAlignment="Top"/>
+    <TextBox x:Name="tbOutput" HorizontalAlignment="Left" Height="23" Margin="109,236,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="205"/>
+    <Button x:Name="tbCombineFiles" Content="Yhdistä tiedostot" HorizontalAlignment="Left" Margin="109,264,0,0" VerticalAlignment="Top" Width="120" Click="tbCombineFiles_Click"/>
+    <StatusBar HorizontalAlignment="Left" Height="28" Margin="-1,341,0,0" VerticalAlignment="Top" Width="348">
+      <TextBlock>jees</TextBlock>
+    </StatusBar>
+
+  </Grid>
 </Window>
